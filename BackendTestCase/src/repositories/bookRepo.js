@@ -9,6 +9,10 @@ export const repoGetAvailableBooks = async () => {
         gt: 0,
       },
     },
+    select: {
+      title: true,
+      stock: true,
+    },
   });
 };
 

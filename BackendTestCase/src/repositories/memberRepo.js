@@ -4,6 +4,10 @@ const prisma = new PrismaClient();
 
 export const repoGetAllMembers = async () => {
   return await prisma.member.findMany({
+    select: {
+      name: true,
+      total_books: true,
+    },
   });
 };
 

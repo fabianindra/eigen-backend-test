@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { serviceGetAllMembers } from '../services/memberService.js';
+import { getAllMembers } from '../controllers/memberController.js';
 
 const memberRouter = Router();
 
-memberRouter.get('get-all-members', serviceGetAllMembers);
+memberRouter.get('/get-all-members', getAllMembers);
 
 export default memberRouter;

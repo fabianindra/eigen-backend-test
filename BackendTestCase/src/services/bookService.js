@@ -1,6 +1,6 @@
 import { repoGetAvailableBooks } from "../repositories/bookRepo.js";
 
-export const serviceGetAvailableBooks= async () => {
+export const serviceGetAvailableBooks = async () => {
     try {
       const data = await repoGetAvailableBooks();
       return {

@@ -5,11 +5,7 @@ import { repoBorrowBooks } from '../repositories/borrowRepo.js';
 
 export const serviceBorrowBooks = async (bookId, memberId, returnDate) => {
     try {
-        if (!bookId || !memberId) {
-            throw new Error("Book ID and Member ID are required.");
-        }
-
-        const book = repoGetBook(bookId)
+        const book = await repoGetBook(bookId)
         if (!book) {
             throw new Error("Book not found.");
         }
@@ -17,7 +13,7 @@ export const serviceBorrowBooks = async (bookId, memberId, returnDate) => {
             throw new Error("Book is out of stock.");
         }
 
-        const member = repoGetMember(memberId)
+        const member = await repoGetMember(memberId)
         if (!member) {
             throw new Error("Member not found.");
         }
@@ -32,13 +28,9 @@ export const serviceBorrowBooks = async (bookId, memberId, returnDate) => {
     }
 };
 
-export const serviceReturnBooks = async (borrowId) => {
+export const serviceReturnBooks = async (borrowId, memberId) => {
     try {
-        if (!borrowId) {
-            throw new Error("Borrow ID is required.");
-        }
-
-        const borrow = repoGetBorrowData(borrowId);
+        const borrow = await repoGetBorrowData(borrowId);
         if (!borrow) {
             throw new Error("Borrow record not found.");
         }
@@ -46,7 +38,7 @@ export const serviceReturnBooks = async (borrowId) => {
             throw new Error("This book has already been returned.");
         }
 
-        const { borrow: returnedBorrow, penalty } = await repoReturnBooks(borrowId);
+        const { borrow: returnedBorrow, penalty } = await repoReturnBooks(borrowId, memberId);
 
         if (penalty > 0) {
             console.log(`Penalty for late return: $${penalty}`);
